@@ -54,10 +54,15 @@ jobs:
               
               if [ $(docker ps -q -f name=face-gate-container) ]; then
                 echo "Stopping existing container..."
-                docker stop devops-container
-                docker rm devops-container
-              fi
+                docker stop face-gate-container
+                docker rm face-gate-container
+              
+              else
+                echo "No existing container found, creating a new one..."
               
               echo "Running the new container..."
               docker run -d -p 8000:8000 --name face-gate-container philip303/face_gate:latest
               echo "Container deployed successfully!"
+              
+              echo "Listing running containers..."
+              docker ps
