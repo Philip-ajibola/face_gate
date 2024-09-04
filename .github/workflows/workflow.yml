@@ -40,3 +40,24 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: docker push philip303/face_gate:latest
+
+      - name: Deploy Docker Container on AWS
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.AWS_HOST }}      # Your AWS instance IP from secrets
+            username: ${{ secrets.AWS_USER }}  # SSH username from secrets
+            key: ${{ secrets.AWS_KEY }}        # SSH private key from secrets
+            port: 22                           # SSH port (default 22)
+            script: |
+              echo "Pulling latest Docker image from Docker Hub..."
+              docker pull philip303/face_gate:latest
+              
+              if [ $(docker ps -q -f name=face-gate-container) ]; then
+                echo "Stopping existing container..."
+                docker stop devops-container
+                docker rm devops-container
+              fi
+              
+              echo "Running the new container..."
+              docker run -d -p 8000:8000 --name face-gate-container philip303/face_gate:latest
+              echo "Container deployed successfully!"
