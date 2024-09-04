@@ -60,6 +60,8 @@ jobs:
               else
                 echo "No existing container found, creating a new one..."
               
+              fi
+              
               echo "Running the new container..."
               sudo docker run -d -p 8000:8000 --name face-gate-container philip303/face_gate:latest
               echo "Container deployed successfully!"
