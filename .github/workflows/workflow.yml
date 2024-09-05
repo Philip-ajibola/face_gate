@@ -52,10 +52,10 @@ jobs:
               echo "Pulling latest Docker image from Docker Hub..."
               sudo docker pull philip303/face_gate:latest
               
-              if [ $(docker ps -q -f name=face-gate-container) ]; then
+              if [ $(docker ps -q -f name=face_gate_container) ]; then
                 echo "Stopping existing container..."
-                sudo docker stop face-gate-container
-                sudo docker rm face-gate-container
+                sudo docker stop face_gate_container
+                sudo docker rm face_gate_container
               
               else
                 echo "No existing container found, creating a new one..."
@@ -63,7 +63,7 @@ jobs:
               fi
               
               echo "Running the new container..."
-              sudo docker run -d -p 9100:9100 --name face-gate-container philip303/face_gate:latest
+              sudo docker run -d -p 9100:9100 --name face_gate_container philip303/face_gate:latest
               echo "Container deployed successfully!"
               
               echo "Listing running containers..."
