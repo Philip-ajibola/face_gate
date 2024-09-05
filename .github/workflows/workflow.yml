@@ -44,10 +44,10 @@ jobs:
       - name: Deploy Docker Container on AWS
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ secrets.AWS_HOST }}      # Your AWS instance IP from secrets
-            username: ${{ secrets.AWS_USER }}  # SSH username from secrets
-            key: ${{ secrets.AWS_KEY }}        # SSH private key from secrets
-            port: 22                           # SSH port (default 22)
+            host: ${{ secrets.AWS_HOST }}
+            username: ${{ secrets.AWS_USER }}
+            key: ${{ secrets.AWS_KEY }}
+            port: 22
             script: |
               echo "Pulling latest Docker image from Docker Hub..."
               sudo docker pull philip303/face_gate:latest
@@ -63,7 +63,7 @@ jobs:
               fi
               
               echo "Running the new container..."
-              sudo docker run -d -p 8000:8000 --name face-gate-container philip303/face_gate:latest
+              sudo docker run -d -p 9100:9100 --name face-gate-container philip303/face_gate:latest
               echo "Container deployed successfully!"
               
               echo "Listing running containers..."
